@@ -89,3 +89,93 @@ if number == nil {
     let number2: Int = number!
 }
 ```
+
+## Что такое расширения?
+
+```swift
+class A {
+
+}
+
+// cannot add stored properties
+extension A {
+    let name = "Tony"
+}
+
+// can add computed properties
+extension A {
+    var name {
+        "Tony"
+    }
+}
+
+protocol Printable {
+    func print()
+}
+
+extension Printable {
+    func print() {
+        print("Hello from Printable")
+    }
+}
+
+class B: Printable {
+    func print() {
+        print("Hello from B")
+    }
+}
+
+B().print() // prints "Hello from B"
+
+extension B: CustomStringConvertible {
+    var description: String {
+        "This is B instance"
+    }
+}
+// 0x76848489bcee08 class B
+print(B()) // prints "This is B instance"
+```
+
+## Как запретить наследование класса?
+
+```swift
+class MayBeInherited {
+
+}
+
+class Subclass: MayBeInherited {
+
+}
+
+final class MayNotBeInherited {
+
+}
+```
+
+## Можете ли вы устранить проблему в этом коде?
+Приведенный ниже код выдает ошибку компилятора. Что не так? Как вы можете это исправить?
+
+```swift
+struct Apple {}
+
+func pick(apple: Apple?) {
+    guard let apple = apple else {
+        print("No apple found!")
+        return // no return is an error
+    }   
+    print(apple)
+}
+```
+
+## Объясните архитектуру MVC
+
+Model-View-Controller
+- Model - отвечает за бизнес логика, тяжелые задачи, вычисления
+- View - то, что видит пользователь
+- Controller - связка View и Model, передает данные, простые задачи
+
+Пример:
+
+Модель - Данные пользователя, метод для загрузки изображения
+Вью - Показывает имя пользователя и картинку с кнопкой
+Контроллер - Изменять имя при нажатии, вызывать метод модели для загрузки при нажатии на кнопку
